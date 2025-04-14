@@ -31,15 +31,15 @@ export function ScrumbleGame() {
     }, [startGame]);
 
 
-    function handleClick(letter) {
-        if (gameResult !== "" || usedLetters.includes(letter)) return;
+    function handleClick(letter,i) {
+        if (gameResult !== "" || usedLetters.includes(i)) return;
 
         const index = currentLetter.indexOf("_");
 
         const newAttempt = [...currentLetter];
         newAttempt[index] = letter;
         setCurrentLetter(newAttempt);
-        setUsedLetters([...usedLetters, index]);
+        setUsedLetters([...usedLetters, i]);
 
         const createdWord = newAttempt.join("");
 
@@ -83,8 +83,8 @@ export function ScrumbleGame() {
 
                         <button
                             key={i}
-                            onClick={() => handleClick(letter)}
-                            disabled={usedLetters.includes(letter)}
+                            onClick={() => handleClick(letter,i)}
+                            disabled={usedLetters.includes(i)}
                         >
                             {letter}
                         </button>
