@@ -1,5 +1,10 @@
+import {ScrumbleGame} from "./component/file.js";
+
+
 function App() {
-    return <></>;
+    return <>
+    <ScrumbleGame/>
+    </>;
 }
 
 export default App;
