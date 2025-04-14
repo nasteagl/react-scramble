@@ -1,6 +1,6 @@
 import { images } from '../constants/images.js';
 import { words } from '../constants/words.js';
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useCallback} from "react";
 
 export function ScrumbleGame() {
     const [selectedWord, setSelectedWord] = useState("");
@@ -11,15 +11,11 @@ export function ScrumbleGame() {
     const [usedLetters, setUsedLetters] = useState([]);
     const [attempts, setAttempts] = useState(0);
 
-    useEffect(() => {
-        startGame();
-    }, []);
-
     function shuffle(word) {
         return word.split("").sort(() => Math.random() - 0.5);
     }
 
-    function startGame() {
+ const startGame = useCallback(()=> {
         const word = words[Math.floor(Math.random() * words.length)];
         setSelectedWord(word);
         setScrambleWords(shuffle(word));
@@ -28,7 +24,12 @@ export function ScrumbleGame() {
         setAttempts(0);
         setGameResult("");
         setImageIndex(Math.floor(Math.random() * images.length));
-    }
+    },[])
+
+    useEffect(() => {
+        startGame();
+    }, [startGame]);
+
 
     function handleClick(letter) {
         if (gameResult !== "" || usedLetters.includes(letter)) return;
@@ -59,6 +60,7 @@ export function ScrumbleGame() {
             }
         }
     }
+
 
     function renderGame() {
         return (
